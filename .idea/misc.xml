@@ -5,6 +5,9 @@
     <libraryRoots>
       <file path="$PROJECT_DIR$/pyapp/pyapp" />
     </libraryRoots>
+    <excludeRoots>
+      <file path="$PROJECT_DIR$/src/library/generated" />
+    </excludeRoots>
   </component>
   <component name="JavaScriptSettings">
     <option name="languageLevel" value="ES6" />
