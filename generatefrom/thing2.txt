@@ -1,0 +1,2 @@
+#include <iostream>
+void thing2() { std::cout << "thing2()\n"; }

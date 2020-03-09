@@ -3,4 +3,7 @@ project(generated_code_test)
 
 set(CMAKE_CXX_STANDARD 17)
 
+add_subdirectory(generatefrom)
+
 add_subdirectory(src)
+
