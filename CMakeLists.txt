@@ -11,3 +11,14 @@ set(GEN_SOURCE_DIR ${CMAKE_SOURCE_DIR}/generatefrom)
 
 add_subdirectory(src)
 
+add_custom_target(
+    touchCmakeLists ALL
+    )
+
+add_custom_command(
+    TARGET touchCmakeLists
+    COMMAND ${PROJECT_SOURCE_DIR}/bin/touchcmakelists.py
+            ${PROJECT_SOURCE_DIR}/CMakeLists.txt
+            ${GEN_SOURCE_DIR}
+            ${GEN_DIR}
+)

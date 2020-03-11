@@ -22,6 +22,7 @@ foreach(inFile ${globbedInputs})
     )
 endforeach()
 
+
 add_library(generated_code_test SHARED library.cpp library.h
         ${GENERATED_SOURCES}
         )
