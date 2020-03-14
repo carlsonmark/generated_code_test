@@ -15,14 +15,20 @@ def filesMatch(path1, path2):
         try:
             files2.remove(fn)
         except: pass
+    removed = False
     for fn in files2:
+        removed = True
         print('Deleting', fn)
         p2.joinpath(Path(fn+'.hpp')).unlink()
         p2.joinpath(Path(fn+'.cpp')).unlink()
-    return matched
+    return matched, removed
 
 if __name__ == '__main__':
-    match = filesMatch(sys.argv[2], sys.argv[3])
+    match, removed = filesMatch(sys.argv[2], sys.argv[3])
     if not match:
-        print('Files did not match')
         Path(sys.argv[1]).touch()
+        print('!'*79)
+        print('! Generated files changed.')
+        print('! Please re-build.')
+        print('!'*79)
+        sys.exit(100)
