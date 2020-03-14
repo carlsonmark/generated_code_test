@@ -13,15 +13,13 @@ foreach(inFile ${globbedInputs})
     string(REGEX REPLACE "\\.in" ".hpp" hppFilename ${inFile})
     string(REGEX REPLACE ${GEN_SOURCE_DIR} ${GEN_DIR} hppFilename ${hppFilename})
     set(GENERATED_SOURCES ${GENERATED_SOURCES} ${cppFilename} ${hppFilename})
-
     add_custom_command(
             OUTPUT ${cppFilename} ${hppFilename}
             COMMAND ${CMAKE_SOURCE_DIR}/bin/gen.sh ${inFile} ${GEN_DIR}
             DEPENDS ${inFile}
-            COMMENT "Running gen.sh"
+            COMMENT "Running gen.sh ${inFile} ${GEN_DIR}"
     )
 endforeach()
-
 
 add_library(generated_code_test SHARED library.cpp library.h
         ${GENERATED_SOURCES}

@@ -24,11 +24,12 @@ def filesMatch(path1, path2):
     return matched, removed
 
 if __name__ == '__main__':
-    match, removed = filesMatch(sys.argv[2], sys.argv[3])
-    if not match:
+    matched, removed = filesMatch(sys.argv[2], sys.argv[3])
+    if not matched:
         Path(sys.argv[1]).touch()
         print('!'*79)
         print('! Generated files changed.')
-        print('! Please re-build.')
+        print('! Please re-build if this build fails.')
         print('!'*79)
-        sys.exit(100)
+        if removed:
+            sys.exit(100)

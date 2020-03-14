@@ -1,2 +1,2 @@
-#include <iostream>
+#include <string>
 std::string thing1() { return "thing1()"; }
