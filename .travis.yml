@@ -1,0 +1,18 @@
+dist: bionic
+sudo: false
+language: cpp
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-9
+
+install:
+  - pip install --user conan cmake
+
+
+script:
+  - CXX=/usr/bin/g++-9 cmake
+  - cmake --build . -- -j2
