@@ -1,6 +1,6 @@
 dist: bionic
 sudo: false
-language: cpp
+language: python
 
 python:
   - 3.8
