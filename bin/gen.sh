@@ -11,7 +11,7 @@ cat "${1}" > "${CPPNAME}"
 HPPNAME=$2/$(basename ${1/.in/.hpp})
 FUNCNAME=${1/.txt/}
 cat > "${HPPNAME}" <<EOF
-void ${FUNCNAME}();
+std::string ${FUNCNAME}();
 EOF
 
 echo "!!!!!!!!!!!!!!!! IN GEN: ${CPPNAME} ${HPPNAME}"

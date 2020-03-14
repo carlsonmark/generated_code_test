@@ -1,2 +1,2 @@
 #include <iostream>
-void thing2() { std::cout << "thing2()\n"; }
+std::string thing2() { return "thing2()"; }
