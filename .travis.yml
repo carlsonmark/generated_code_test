@@ -2,6 +2,9 @@ dist: bionic
 sudo: false
 language: cpp
 
+python:
+  - 3.8
+
 addons:
   apt:
     sources:
