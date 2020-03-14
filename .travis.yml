@@ -5,12 +5,12 @@ language: cpp
 addons:
   apt:
     sources:
-      - ubuntu-toolchain-r-test
+      - ubuntu-toolchain-r-test # Allows new version of g++ to be used
     packages:
       - g++-9
 
 install:
-  - pip install --user conan cmake
+  - pip3 install --user conan cmake
 
 
 script:
