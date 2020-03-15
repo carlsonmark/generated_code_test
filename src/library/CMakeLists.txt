@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
 
+find_package(OpenMP REQUIRED)
+
 file(GLOB globbedInputs ${GEN_SOURCE_DIR}/*.in)
 
 # A list of all of the generated source files
@@ -24,3 +26,5 @@ endforeach()
 add_library(generated_code_test SHARED library.cpp library.h
         ${GENERATED_SOURCES}
         )
+
+target_link_libraries(generated_code_test project_options CONAN_PKG::ms-gsl CONAN_PKG::TBB OpenMP::OpenMP_CXX)

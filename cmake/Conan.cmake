@@ -27,6 +27,8 @@ macro(run_conan)
             benchmark/1.5.0
             catch2/2.11.0
             fmt/6.0.0
+            ms-gsl/2.0.0
+            TBB/2019_U9@conan/stable
             OPTIONS
             ${CONAN_EXTRA_OPTIONS}
             BASIC_SETUP
