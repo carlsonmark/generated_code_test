@@ -9,8 +9,8 @@ CPPNAME=$2/$(basename ${1/.in/.cpp})
 cat "${1}" > "${CPPNAME}"
 
 HPPNAME=$2/$(basename ${1/.in/.hpp})
-FUNCNAME=${1/.txt/}
+
 cat > "${HPPNAME}" <<EOF
 #include <string>
-std::string ${FUNCNAME}();
+std::string $(basename ${1/.in/})();
 EOF

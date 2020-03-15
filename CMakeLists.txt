@@ -48,6 +48,14 @@ set(CONAN_EXTRA_OPTIONS "")
 include(cmake/Conan.cmake)
 run_conan()
 
+if(ENABLE_TESTING)
+    enable_testing()
+    message(
+            "Building Tests."
+    )
+    add_subdirectory(src/test)
+endif()
+
 ###############
 # Mark's items:
 
