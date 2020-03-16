@@ -9,9 +9,13 @@
 static void BM_Apodize(benchmark::State& state) {
     unsigned int rows = 1024;
     unsigned int cols = 1024;
-    std::vector<std::complex<double>> inputData(rows*cols, std::complex<double>(0.11,0.11));
     for (auto _ : state)
+    {
+        state.PauseTiming();
+        std::vector<std::complex<double>> inputData(rows*cols, std::complex<double>(0.11,0.11));
+        state.ResumeTiming();
         apodizeSineBell(inputData, rows);
+    }
 }
 // Register the function as a benchmark
 BENCHMARK(BM_Apodize);
@@ -19,19 +23,41 @@ BENCHMARK(BM_Apodize);
 static void BM_ApodizeOpenMP(benchmark::State& state) {
     unsigned int rows = 1024;
     unsigned int cols = 1024;
-    std::vector<std::complex<double>> inputData(rows*cols, std::complex<double>(0.11,0.11));
     for (auto _ : state)
+    {
+        state.PauseTiming();
+        std::vector<std::complex<double>> inputData(rows*cols, std::complex<double>(0.11,0.11));
+        state.ResumeTiming();
         apodizeSineBellOpenMP(inputData, rows);
+    }
 }
 // Register the function as a benchmark
 BENCHMARK(BM_ApodizeOpenMP);
 
+static void BM_ApodizeOpenMPAuto(benchmark::State& state) {
+    unsigned int rows = 1024;
+    unsigned int cols = 1024;
+    for (auto _ : state)
+    {
+        state.PauseTiming();
+        std::vector<std::complex<double>> inputData(rows*cols, std::complex<double>(0.11,0.11));
+        state.ResumeTiming();
+        apodizeSineBellOpenMPAuto(inputData, rows);
+    }
+}
+// Register the function as a benchmark
+BENCHMARK(BM_ApodizeOpenMPAuto);
+
 static void BM_ApodizeParallel(benchmark::State& state) {
     unsigned int rows = 1024;
     unsigned int cols = 1024;
-    std::vector<std::complex<double>> inputData(rows*cols, std::complex<double>(0.11,0.11));
     for (auto _ : state)
+    {
+        state.PauseTiming();
+        std::vector<std::complex<double>> inputData(rows*cols, std::complex<double>(0.11,0.11));
+        state.ResumeTiming();
         apodizeSineBellParallel(inputData, rows);
+    }
 }
 // Register the function as a benchmark
 BENCHMARK(BM_ApodizeParallel);
@@ -39,9 +65,13 @@ BENCHMARK(BM_ApodizeParallel);
 static void BM_ApodizeMoreParallel(benchmark::State& state) {
     unsigned int rows = 1024;
     unsigned int cols = 1024;
-    std::vector<std::complex<double>> inputData(rows*cols, std::complex<double>(0.11,0.11));
     for (auto _ : state)
+    {
+        state.PauseTiming();
+        std::vector<std::complex<double>> inputData(rows*cols, std::complex<double>(0.11,0.11));
+        state.ResumeTiming();
         apodizeSineBellMoreParallel(inputData, rows);
+    }
 }
 // Register the function as a benchmark
 BENCHMARK(BM_ApodizeMoreParallel);

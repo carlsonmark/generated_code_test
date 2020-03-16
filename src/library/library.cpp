@@ -19,7 +19,7 @@ void hello() {
 void apodizeSineBell(std::vector<std::complex<double>> &array, size_t rows)
 {
     size_t cols = array.size() / rows;
-    double radScale = M_PI / ((double)cols - 1);
+    double radScale = M_PI / ((double)rows - 1);
     for (size_t row = 0; row < rows; row++)
     {
         size_t begin = row * cols;
@@ -41,8 +41,8 @@ void apodizeSineBell(std::vector<std::complex<double>> &array, size_t rows)
 void apodizeSineBellOpenMP(std::vector<std::complex<double>> &array, size_t rows)
 {
     size_t cols = array.size() / rows;
-    double radScale = M_PI / ((double)cols - 1);
-#pragma omp parallel for
+    double radScale = M_PI / ((double)rows - 1);
+#pragma omp parallel for default(shared)
     for (size_t row = 0; row < rows; row++)
     {
         size_t begin = row * cols;
@@ -57,6 +57,28 @@ void apodizeSineBellOpenMP(std::vector<std::complex<double>> &array, size_t rows
 }
 
 /**
+ * Use OpenMP to parallelize the outer loop.
+ * Implementation complexity: Minimal
+ * This should spin up a minimal amount of threads to do the work.
+ */
+void apodizeSineBellOpenMPAuto(std::vector<std::complex<double>> &array, size_t rows)
+{
+    size_t cols = array.size() / rows;
+    double radScale = M_PI / ((double)rows - 1);
+#pragma omp parallel for default(shared)
+    for (size_t row = 0; row < rows; row++)
+    {
+        size_t begin = row * cols;
+        size_t end = (row+1) * cols;
+        gsl::span<std::complex<double>> rowSpan(&(*(array.begin() + begin)), cols);
+        // Calculate the scaling factor for this index
+        double scalingFactor = sin((double)row * radScale);
+        // Apply the scaling factor to all columns of the row
+        for (auto &element : rowSpan)
+            element *= scalingFactor;
+    }
+}
+/**
  * Use std::transform to parallelize the inner loop
  * Implementation complexity: Minimal
  * This ends up spinning up a lot of threads to do the work.
@@ -65,7 +87,7 @@ void apodizeSineBellParallel(std::vector<std::complex<double>> &array, size_t ro
 {
     size_t cols = array.size() / rows;
     // Parameters calculation
-    double radScale = M_PI / ((double)cols - 1);
+    double radScale = M_PI / ((double)rows - 1);
     // Array Apodization of non-zeroed values
     for (size_t row = 0; row < rows; row++)
     {
@@ -101,7 +123,7 @@ struct ApodHelper {
 void apodizeSineBellMoreParallel(std::vector<std::complex<double>> &array, size_t rows)
 {
     size_t cols = array.size() / rows;
-    double radScale = M_PI / ((double)cols - 1);
+    double radScale = M_PI / ((double)rows - 1);
     // Create row helpers for iterating over rows within 'array'
     std::vector<ApodHelper> rowHelpers;
     for (size_t row = 0; row < rows; row++) {

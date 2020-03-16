@@ -17,8 +17,8 @@ TEST_CASE("Verify methods were generated", "[generated]")
 
 TEST_CASE("Verify benchmarked apodization methods produce the same result", "[apodization]") {
 
-    unsigned int rows = 4;
-    unsigned int cols = 4;
+    unsigned int rows = 5;
+    unsigned int cols = 5;
     std::vector<std::complex<double>> data1(rows*cols, std::complex<double>(0.11,0.11));
     apodizeSineBell(data1, rows);
     std::vector<std::complex<double>> data2(rows*cols, std::complex<double>(0.11,0.11));
