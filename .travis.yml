@@ -20,5 +20,5 @@ install:
 script:
   - mkdir -p build
   - cd build
-  - CXX=/usr/bin/g++-9 cmake ..
+  - CC=/usr/bin/gcc-9 CXX=/usr/bin/g++-9 cmake ..
   - cmake --build . -- -j2
