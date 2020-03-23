@@ -8,7 +8,7 @@ endif()
 include_directories(${generated_code_test_SOURCE_DIR}/src/library)
 
 add_library(catch_main STATIC CatchMain.cpp)
-target_link_libraries(catch_main PUBLIC CONAN_PKG::catch2 generated_code_test)
+target_link_libraries(catch_main PUBLIC CONAN_PKG::catch2 generated_code_test_static)
 
 add_executable(tests TestLibrary.cpp)
 target_link_libraries(tests PRIVATE project_warnings project_options

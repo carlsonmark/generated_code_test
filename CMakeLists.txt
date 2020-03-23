@@ -48,16 +48,18 @@ set(CONAN_EXTRA_OPTIONS "")
 include(cmake/Conan.cmake)
 run_conan()
 
-if(ENABLE_TESTING)
-    enable_testing()
-    message(
-            "Building Tests."
-    )
-    add_subdirectory(src/test)
-endif()
-
 ###############
 # Mark's items:
+
+# Python
+set(Python_ADDITIONAL_VERSIONS 3.5)
+find_package(PythonLibs REQUIRED)
+include_directories(${PYTHON_INCLUDE_DIRS})
+
+# Pybind11 (git submodule)
+set(PYBIND11_CPP_STANDARD -std=c++17)
+add_subdirectory(submodules/pybind11)
+include_directories(submodules/pybind11/include)
 
 set(GEN_DIR ${CMAKE_SOURCE_DIR}/src/library/generated)
 set(GEN_SOURCE_DIR ${CMAKE_SOURCE_DIR}/generatefrom)

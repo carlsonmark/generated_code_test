@@ -23,8 +23,32 @@ foreach(inFile ${globbedInputs})
     )
 endforeach()
 
-add_library(generated_code_test SHARED library.cpp library.h
-        ${GENERATED_SOURCES}
+set(LIBGENERATED_CODE_TEST_SOURCES
+        ${CMAKE_CURRENT_SOURCE_DIR}/library.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/library.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/pybinds.cpp
+        ${GENERATED_SOURCES})
+set(LIBGENERATED_CODE_TEST_SOURCES ${LIBGENERATED_CODE_TEST_SOURCES} PARENT_SCOPE)
+add_library(generated_code_test SHARED
+        ${LIBGENERATED_CODE_TEST_SOURCES}
         )
 
-target_link_libraries(generated_code_test project_options CONAN_PKG::ms-gsl CONAN_PKG::TBB OpenMP::OpenMP_CXX)
+target_link_libraries(generated_code_test project_warnings project_options
+        CONAN_PKG::ms-gsl
+        CONAN_PKG::TBB
+        OpenMP::OpenMP_CXX
+        pybind11::module
+        ${PYTHON_LIBRARIES})
+
+set_target_properties(generated_code_test PROPERTIES
+        PREFIX "${PYTHON_MODULE_PREFIX}"
+        SUFFIX "${PYTHON_MODULE_EXTENSION}")
+
+add_library(generated_code_test_static STATIC
+        ${LIBGENERATED_CODE_TEST_SOURCES}
+        )
+target_link_libraries(generated_code_test_static project_warnings project_options
+        CONAN_PKG::ms-gsl
+        CONAN_PKG::TBB
+        OpenMP::OpenMP_CXX
+        ${PYTHON_LIBRARIES})
