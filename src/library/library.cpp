@@ -23,8 +23,7 @@ void apodizeSineBell(std::vector<std::complex<double>> &array, size_t rows)
     for (size_t row = 0; row < rows; row++)
     {
         size_t begin = row * cols;
-        size_t end = (row+1) * cols;
-        gsl::span<std::complex<double>> rowSpan(&(*(array.begin() + begin)), cols);
+        gsl::span<std::complex<double>> rowSpan(&(*(array.begin() + static_cast<long>(begin))), static_cast<long>(cols));
         // Calculate the scaling factor for this index
         double scalingFactor = sin((double)row * radScale);
         // Apply the scaling factor to all columns of the row
@@ -46,7 +45,6 @@ void apodizeSineBellOpenMP(std::vector<std::complex<double>> &array, size_t rows
     for (size_t row = 0; row < rows; row++)
     {
         size_t begin = row * cols;
-        size_t end = (row+1) * cols;
         gsl::span<std::complex<double>> rowSpan(&(*(array.begin() + begin)), cols);
         // Calculate the scaling factor for this index
         double scalingFactor = sin((double)row * radScale);
@@ -69,7 +67,6 @@ void apodizeSineBellOpenMPAuto(std::vector<std::complex<double>> &array, size_t 
     for (size_t row = 0; row < rows; row++)
     {
         size_t begin = row * cols;
-        size_t end = (row+1) * cols;
         gsl::span<std::complex<double>> rowSpan(&(*(array.begin() + begin)), cols);
         // Calculate the scaling factor for this index
         double scalingFactor = sin((double)row * radScale);
@@ -109,7 +106,7 @@ void apodizeSineBellParallel(std::vector<std::complex<double>> &array, size_t ro
 struct ApodHelper {
     // The row data in span format
     gsl::span<std::complex<double>> span;
-    // The index of hte row
+    // The index of the row
     size_t row{};
 };
 
@@ -133,7 +130,7 @@ void apodizeSineBellMoreParallel(std::vector<std::complex<double>> &array, size_
     // Iterate over the rows
     std::transform(std::execution::par, rowHelpers.begin(), rowHelpers.end(), rowHelpers.begin(),
                    [&radScale,&cols](ApodHelper helper){
-                       double scalingFactor = sin(helper.row * radScale);
+                       double scalingFactor = sin(static_cast<double>(helper.row) * radScale);
                        for (size_t col = 0; col < cols; col++)
                            helper.span[col] *= scalingFactor;
                        return helper;
