@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <complex>
 #include <iostream>
-#include <execution>
+//#include <execution>
 #include <vector>
 
 #include <gsl/span>
@@ -75,6 +75,8 @@ void apodizeSineBellOpenMPAuto(std::vector<std::complex<double>> &array, size_t 
             element *= scalingFactor;
     }
 }
+
+#ifdef TBB_NOT_BROKEN
 /**
  * Use std::transform to parallelize the inner loop
  * Implementation complexity: Minimal
@@ -136,3 +138,4 @@ void apodizeSineBellMoreParallel(std::vector<std::complex<double>> &array, size_
                        return helper;
                    });
 }
+#endif

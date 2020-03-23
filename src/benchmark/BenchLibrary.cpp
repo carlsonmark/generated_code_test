@@ -48,6 +48,7 @@ static void BM_ApodizeOpenMPAuto(benchmark::State& state) {
 // Register the function as a benchmark
 BENCHMARK(BM_ApodizeOpenMPAuto);
 
+#ifdef TBB_NOT_BROKEN
 static void BM_ApodizeParallel(benchmark::State& state) {
     unsigned int rows = 1024;
     unsigned int cols = 1024;
@@ -75,6 +76,7 @@ static void BM_ApodizeMoreParallel(benchmark::State& state) {
 }
 // Register the function as a benchmark
 BENCHMARK(BM_ApodizeMoreParallel);
+#endif
 
 // Define another benchmark
 static void BM_StringCopy(benchmark::State& state) {
