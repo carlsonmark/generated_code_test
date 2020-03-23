@@ -35,7 +35,7 @@ add_library(generated_code_test SHARED
 
 target_link_libraries(generated_code_test project_warnings project_options
         CONAN_PKG::ms-gsl
-        CONAN_PKG::TBB
+        CONAN_PKG::tbb
         OpenMP::OpenMP_CXX
         pybind11::module
         ${PYTHON_LIBRARIES})
@@ -49,6 +49,6 @@ add_library(generated_code_test_static STATIC
         )
 target_link_libraries(generated_code_test_static project_warnings project_options
         CONAN_PKG::ms-gsl
-        CONAN_PKG::TBB
+        CONAN_PKG::tbb
         OpenMP::OpenMP_CXX
         ${PYTHON_LIBRARIES})

@@ -28,7 +28,7 @@ macro(run_conan)
             catch2/2.11.0
             fmt/6.0.0
             ms-gsl/2.0.0
-            TBB/2019_U9@conan/stable
+            tbb/2020.0
             OPTIONS
             ${CONAN_EXTRA_OPTIONS}
             BASIC_SETUP
