@@ -12,4 +12,5 @@
 
 PYBIND11_MODULE(generated_code_test, m) {
     m.def("hello", &hello);
+    m.def("thing1", &thing1);
 }
