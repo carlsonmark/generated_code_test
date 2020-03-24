@@ -5,6 +5,10 @@ language: python
 python:
   - 3.8
 
+cache:
+  directories:
+    - $HOME/.conan
+
 addons:
   apt:
     sources:
