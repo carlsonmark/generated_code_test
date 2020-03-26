@@ -14,6 +14,8 @@ add_executable(tests TestLibrary.cpp)
 target_link_libraries(tests PRIVATE project_warnings project_options
         catch_main )
 
+add_test(NAME test COMMAND tests)
+
 
 # automatically discover tests that are defined in catch based test files you
 # can modify the unittests. TEST_PREFIX to whatever you want, or use different

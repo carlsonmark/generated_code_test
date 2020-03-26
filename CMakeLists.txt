@@ -77,3 +77,12 @@ add_custom_command(
             ${GEN_SOURCE_DIR}
             ${GEN_DIR}
 )
+
+if(ENABLE_TESTING)
+    enable_testing()
+    message(
+            "Building Tests."
+    )
+    add_subdirectory(src/test)
+endif()
+
